@@ -52,6 +52,11 @@ module.exports ={
                 res.redirect('/libro');
            });
         });
+    },
+    // metodo editar libro
+    editar_libro:function(req,res){
+        console.log(req.params.id);
+        res.render('libro/editar', { title: 'Editar libro'});
     }
 
 }
