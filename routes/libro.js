@@ -25,6 +25,7 @@ router.get('/',libroController.index);
 router.get('/agregar',libroController.agregar);
 router.post('/',cargarImg.single('imagen'),libroController.guardar_libro);
 router.post('/eliminar/:id',libroController.eliminar_libro);
+router.get('/editar/:id',libroController.editar_libro);
 
 
 module.exports = router;
