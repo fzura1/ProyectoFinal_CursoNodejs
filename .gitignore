@@ -128,3 +128,6 @@ dist
 
 # DIR Connect DB
 config/conexion.js
+
+# DIR img public
+public/images/
