@@ -4,16 +4,16 @@ var borrarImg=require('fs');
 module.exports ={
     // metodo index de libro
     index:function(req,res){
-        if(!req.session.nombre){
-            res.end("No tienes permiso de acceso");
-        }else{
+        // if(!req.session.nombre){
+        //     res.end("No tienes permiso de acceso");
+        // }else{
             //usa modelo libro
             libro.getLibro(con,function(err,datos){
                 console.log(datos)
                 // renderiza vista index libros
                 res.render('libro/index', { title: 'Inventario de Libros',libro:datos });
             });            
-        }
+        // }
     },    
     // metodo agregar libro (carga vista)
     agregar:function(req,res){
@@ -26,7 +26,7 @@ module.exports ={
         var titulo=req.body.titulo;
         var autor=req.body.autor;        
         var descripcion=req.body.descripcion;        
-        if(! /^([A-Za-z0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-z0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-z0-9\s]{1,250})$/.test(descripcion) ){
+        if(! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,250})$/.test(descripcion) ){
             console.log("llego a error 400");
             var nombreImg="public/images/"+(req.file.filename); //ruta imagen
             borrarImg.unlinkSync(nombreImg); //elimina debido a error
