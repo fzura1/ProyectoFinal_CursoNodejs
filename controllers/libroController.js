@@ -1,38 +1,39 @@
 var con=require('../config/conexion');
-var programador=require('../models/programadorModel');
+var libro=require('../models/libroModel');
 var borrarImg=require('fs');
 module.exports ={
-    // metodo index de programador
+    // metodo index de libro
     index:function(req,res){
         if(!req.session.nombre){
             res.end("No tienes permiso de acceso");
         }else{
-            //usa modelo programador
-            programador.getProgramador(con,function(err,datos){
+            //usa modelo libro
+            libro.getLibro(con,function(err,datos){
                 console.log(datos)
-                // renderiza vista index programador
-                res.render('programador/index', { title: 'Lista programadores',programador:datos });
+                // renderiza vista index libros
+                res.render('libro/index', { title: 'Lista de Libros',libro:datos });
             });
-            res.cookie('programador', 'true', {
-                maxAge: 60 * 60 * 1000, // Duración de una hora
-                httpOnly: true, // Protocolo http
-                secure: false, // Conexión segura https
-                sameSite: true, // No se enviará en peticiones cross-site
-            });
+            // res.cookie('libro', 'true', {
+            //     maxAge: 60 * 60 * 1000, // Duración de una hora
+            //     httpOnly: true, // Protocolo http
+            //     secure: false, // Conexión segura https
+            //     sameSite: true, // No se enviará en peticiones cross-site
+            // });
             
         }
     },    
-    // metodo agregar programador (carga vista)
+    // metodo agregar libro (carga vista)
     agregar:function(req,res){
-            res.render('programador/agregar', { title: 'Agregar programador'});
+            res.render('libro/agregar', { title: 'Agregar libro'});
     },
-    // metodo guardar programador
-    guardar_programador:function(req,res){
+    // metodo guardar libro
+    guardar_libro:function(req,res){
         console.log(req.body);
         console.log(req.file.filename);
-        var nombre_apellido=req.body.nombre_apellido;
-        var agnos_programando=req.body.agnos_programando;        
-        if(! /^([A-Za-z0-9\s]{1,50})$/.test(nombre_apellido) || ! /^([0-9\s]{1,50})$/.test(agnos_programando) ){
+        var titulo=req.body.titulo;
+        var autor=req.body.autor;        
+        var descripcion=req.body.descripcion;        
+        if(! /^([A-Za-z0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-z0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-z0-9\s]{1,250})$/.test(descripcion) ){
             console.log("llego a error 400");
             var nombreImg="public/images/"+(req.file.filename); //ruta imagen
             borrarImg.unlinkSync(nombreImg); //elimina debido a error
@@ -40,22 +41,22 @@ module.exports ={
             res.end()
             
         }else{
-            programador.setProgramador(con,req.body,req.file,function(err){
-                res.redirect('/programador');
+            libro.setLibro(con,req.body,req.file,function(err){
+                res.redirect('/libro');
             });
-            console.log("almacena programador");
+            console.log("almacena libro");
         }
     },
-    // metodo eliminar programador
-    eliminar_programador:function(req,res){
+    // metodo eliminar libro
+    eliminar_libro:function(req,res){
         console.log(req.params.id);
-        programador.getByIdProgramador(con,req.params.id,function(err,datos){
-           var nombreImg="public/images/"+(datos[0].img_avatar);
+        libro.getByIdLibro(con,req.params.id,function(err,datos){
+           var nombreImg="public/images/"+(datos[0].imagen);
            if(borrarImg.existsSync(nombreImg)){
                 borrarImg.unlinkSync(nombreImg);
            }
-           programador.deleteByIdProgramador(con,req.params.id,function(err){
-                res.redirect('/programador');
+           libro.deleteByIdLibro(con,req.params.id,function(err){
+                res.redirect('/libro');
            });
         });
     }
