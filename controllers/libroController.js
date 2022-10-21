@@ -56,7 +56,10 @@ module.exports ={
     // metodo editar libro
     editar_libro:function(req,res){
         console.log(req.params.id);
-        res.render('libro/editar', { title: 'Editar libro'});
+        libro.getByIdLibro(con,req.params.id,function(err,datos){
+            console.log(datos[0]);
+            res.render('libro/editar', { title: 'Editar libro',libro:datos[0]});
+        });
     }
 
 }
