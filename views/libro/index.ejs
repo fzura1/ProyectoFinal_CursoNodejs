@@ -13,7 +13,9 @@
                       <th>Autor</th>
                       <th>Descripción </th>
                       <th>Imagen</th>
+                      <th>Editar</th>
                       <th>Eliminar</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -24,10 +26,16 @@
                         <td><%= libro[i].descripcion  %></td>
                         <td><img src="/images/<%= libro[i].imagen %>" width="100"></td>
                         <td>                      
-                            <form id="formEliminarLibro<%= libro[i].id %>" action="/libro/eliminar/<%= libro[i].id %>" method="post">
-                              <button value="<%= libro[i].id %>" class="btn red-effect red-light" type="button" onclick="confirm_eliminar(this.value)" name="eliminar"><i class="material-icons">delete</i></button>
-                            </form>
+                          <form action="/libro/editar/<%= libro[i].id %>" method="get">
+                            <button class="btn red-effect red-light" type="submit" name="editar"><i class="material-icons">edit</i></button>
+                          </form>
+                        </td> 
+                        <td>                      
+                          <form id="formEliminarLibro<%= libro[i].id %>" action="/libro/eliminar/<%= libro[i].id %>" method="post">
+                            <button value="<%= libro[i].id %>" class="btn red-effect red-light" type="button" onclick="confirm_eliminar(this.value)" name="eliminar"><i class="material-icons">delete</i></button>
+                          </form>
                         </td>
+                       
                       </tr>
                 <% } %>
                 </tbody>
