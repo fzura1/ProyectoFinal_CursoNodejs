@@ -1,28 +1,30 @@
 <%- include ('../maqueta/cabecera.ejs') %>
         <br>
-        <a href="/programador/agregar" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        <a href="/libro/agregar" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         <div class="card">
           <div class="card-content">
-            <span class="card-title">Listado de programadores</span>
+            <span class="card-title">Listado de Libros</span>
           </div>
           <div class="card-content">
             <table class="striped responsive-table">
                 <thead>
                   <tr>
-                      <th>Nombre</th>
-                      <th>Experiencia</th>
-                      <th>Avatar</th>
+                      <th>Titulo</th>
+                      <th>Autor</th>
+                      <th>Descripción </th>
+                      <th>Imagen</th>
                       <th>Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
-                <% for( let i = 0; i < programador.length; i++ ) { %>
+                <% for( let i = 0; i < libro.length; i++ ) { %>
                       <tr>
-                        <td><%= programador[i].nombre_apellido %></td>
-                        <td><%= programador[i].agnos_programando %></td>
-                        <td><img src="/images/<%= programador[i].img_avatar %>" width="100"></td>
+                        <td><%= libro[i].titulo %></td>
+                        <td><%= libro[i].autor %></td>
+                        <td><%= libro[i].descricion %></td>
+                        <td><img src="/images/<%= libro[i].imagen %>" width="100"></td>
                         <td>                      
-                            <form action="/programador/eliminar/<%= programador[i].Id %>" method="post">
+                            <form action="/libro/eliminar/<%= libro[i].id %>" method="post">
                               <button class="btn red-effect red-light" type="submit" name="eliminar"><i class="material-icons">delete</i></button>
                             </form>
                         </td>
