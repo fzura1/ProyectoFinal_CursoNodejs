@@ -21,11 +21,11 @@
                       <tr>
                         <td><%= libro[i].titulo %></td>
                         <td><%= libro[i].autor %></td>
-                        <td><%= libro[i].descricion %></td>
+                        <td><%= libro[i].descripcion  %></td>
                         <td><img src="/images/<%= libro[i].imagen %>" width="100"></td>
                         <td>                      
-                            <form action="/libro/eliminar/<%= libro[i].id %>" method="post">
-                              <button class="btn red-effect red-light" type="submit" name="eliminar"><i class="material-icons">delete</i></button>
+                            <form id="formEliminarLibro<%= libro[i].id %>" action="/libro/eliminar/<%= libro[i].id %>" method="post">
+                              <button value="<%= libro[i].id %>" class="btn red-effect red-light" type="button" onclick="confirm_eliminar(this.value)" name="eliminar"><i class="material-icons">delete</i></button>
                             </form>
                         </td>
                       </tr>
