@@ -1,23 +1,27 @@
 <%- include ('../maqueta/cabecera.ejs') %>
             <div class="card">
                 <div class="card-content">
-                <span class="card-title">Agregar Programador</span>
+                <span class="card-title">Agregar Libro</span>
                 </div>
                 <div class="card-content">
-                    <form id="agregar_programador" action="/programador" method="post" enctype="multipart/form-data">
+                    <form id="agregar_libro" action="/libro" method="post" enctype="multipart/form-data">
                         <div class="input-field col s12">
-                            <input placeholder="" id="nombre_apellido" name="nombre_apellido" type="text" class="validate" required="" aria-required="true" maxlenght="50">
-                            <label for="nombre_apellido" data-error="wrong" data-success="right">Nombre </label>
+                            <input placeholder="" id="titulo" name="titulo" type="text" class="validate" required="" aria-required="true" maxlenght="50">
+                            <label for="titulo" data-error="wrong" data-success="right">Titulo </label>
                         </div>
                         <div class="input-field col s12">
-                            <input placeholder="" id="agnos_programando" name="agnos_programando" type="number" min="0" max="50" class="validate" required="" aria-required="true" maxlenght=50>
-                            <label for="agnos_programando" data-error="wrong" data-success="right">Años Programando</label>
+                            <input placeholder="" id="autor" name="autor" type="text" class="validate" required="" aria-required="true" maxlenght="50">
+                            <label for="autor" data-error="wrong" data-success="right">Autor </label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="" id="descripcion" name="descripcion" type="text" class="validate" required="" aria-required="true" maxlenght="250">
+                            <label for="descripcion" data-error="wrong" data-success="right">Descripción </label>
                         </div>
                         <div class="input-field col s12">
                             <div class="file-field input-field">
                                 <div class="btn btn-small">
-                                  <span>Agregar Avatar</span>
-                                  <input placeholder="" id="img_avatar" name="img_avatar" type="file" class="validate" required="" accept=".jpg,.jpeg,.png" aria-required="true" >
+                                  <span>Agregar imagen</span>
+                                  <input placeholder="" id="imagen" name="imagen" type="file" class="validate" required="" accept=".jpg,.jpeg,.png" aria-required="true" >
                                 </div>
                                 <div class="file-path-wrapper">
                                   <input class="file-path validate" type="text">
@@ -25,7 +29,7 @@
                               </div>
                         </div>            
                         <button class="btn waves-effect waves-light"  type="submit">Guardar</button>            
-                        <a  class="btn waves-effect waves-light" href="/programador">Cancelar</a>           
+                        <a  class="btn waves-effect waves-light" href="/libro">Cancelar</a>           
                     </form>
                 </div>
             </div>
