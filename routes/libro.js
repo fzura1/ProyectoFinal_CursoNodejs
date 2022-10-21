@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const programadorController=require('../controllers/programadorController')
+const libroController=require('../controllers/libroController')
 /* multer */
 var multer = require('multer');
 var fecha =Date.now();
@@ -21,10 +21,10 @@ var cargarImg=multer({storage:rutaAlmacenImg});
 
 
 /* GET home page. */
-router.get('/',programadorController.index);
-router.get('/agregar',programadorController.agregar);
-router.post('/',cargarImg.single('img_avatar'),programadorController.guardar_programador);
-router.post('/eliminar/:id',programadorController.eliminar_programador);
+router.get('/',libroController.index);
+router.get('/agregar',libroController.agregar);
+router.post('/',cargarImg.single('imagen'),libroController.guardar_libro);
+router.post('/eliminar/:id',libroController.eliminar_libro);
 
 
 module.exports = router;

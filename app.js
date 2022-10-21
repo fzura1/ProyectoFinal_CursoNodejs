@@ -5,20 +5,20 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var logger = require('morgan');
 var app = express();
-app.use(session({
-  secret: "6d19d0ce563450c02c5b1bc7987f4bd6d4315c20b2ec70a46ae841d5d580060b",
-  saveUninitialized: true,
-  resave: true,
-  cookie:{
-    maxAge: 60000,
-  }
-}));
-app.use(function (req, res, next) {
-  req.session.nombre = "FelipeZura";
-  next();
-});
+// app.use(session({
+//   secret: "6d19d0ce563450c02c5b1bc7987f4bd6d4315c20b2ec70a46ae841d5d580060b",
+//   saveUninitialized: true,
+//   resave: true,
+//   cookie:{
+//     maxAge: 60000,
+//   }
+// }));
+// app.use(function (req, res, next) {
+//   req.session.nombre = "FelipeZura";
+//   next();
+// });
 var indexRouter = require('./routes/index');
-var programadorRouter= require('./routes/programador');
+var libroRouter= require('./routes/libro');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/programador', programadorRouter);
+app.use('/libro', libroRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

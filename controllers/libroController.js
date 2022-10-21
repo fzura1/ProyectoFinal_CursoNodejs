@@ -11,7 +11,7 @@ module.exports ={
             libro.getLibro(con,function(err,datos){
                 console.log(datos)
                 // renderiza vista index libros
-                res.render('libro/index', { title: 'Lista de Libros',libro:datos });
+                res.render('libro/index', { title: 'Inventario de Libros',libro:datos });
             });            
         }
     },    
