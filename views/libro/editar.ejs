@@ -1,0 +1,36 @@
+<%- include ('../maqueta/cabecera.ejs') %>
+            <div class="card">
+                <div class="card-content">
+                <span class="card-title">Editar Libro</span>
+                </div>
+                <div class="card-content">
+                    <form id="editar_libro" action="/" method="post" enctype="multipart/form-data">
+                        <div class="input-field col s12">
+                            <input placeholder="" id="titulo" name="titulo" type="text" class="validate" required="" aria-required="true" maxlenght="50">
+                            <label for="titulo" data-error="wrong" data-success="right">Titulo </label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="" id="autor" name="autor" type="text" class="validate" required="" aria-required="true" maxlenght="50">
+                            <label for="autor" data-error="wrong" data-success="right">Autor </label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="" id="descripcion" name="descripcion" type="text" class="validate" required="" aria-required="true" maxlenght="250">
+                            <label for="descripcion" data-error="wrong" data-success="right">Descripción </label>
+                        </div>
+                        <div class="input-field col s12">
+                            <div class="file-field input-field">
+                                <div class="btn btn-small">
+                                  <span>Agregar imagen</span>
+                                  <input placeholder="" id="imagen" name="imagen" type="file" class="validate" required="" accept=".jpg,.jpeg,.png" aria-required="true" >
+                                </div>
+                                <div class="file-path-wrapper">
+                                  <input class="file-path validate" type="text">
+                                </div>
+                              </div>
+                        </div>            
+                        <button class="btn waves-effect waves-light"  type="submit">Editar</button>            
+                        <a  class="btn waves-effect waves-light" href="/libro">Cancelar</a>           
+                    </form>
+                </div>
+            </div>
+<%- include ('../maqueta/pie.ejs') %>
