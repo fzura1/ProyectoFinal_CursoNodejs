@@ -12,14 +12,7 @@ module.exports ={
                 console.log(datos)
                 // renderiza vista index libros
                 res.render('libro/index', { title: 'Lista de Libros',libro:datos });
-            });
-            // res.cookie('libro', 'true', {
-            //     maxAge: 60 * 60 * 1000, // Duración de una hora
-            //     httpOnly: true, // Protocolo http
-            //     secure: false, // Conexión segura https
-            //     sameSite: true, // No se enviará en peticiones cross-site
-            // });
-            
+            });            
         }
     },    
     // metodo agregar libro (carga vista)
