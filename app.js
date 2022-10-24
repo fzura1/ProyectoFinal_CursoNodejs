@@ -13,10 +13,6 @@ app.use(session({
     maxAge: 87000000,
   }
 }));
-// app.use(function (req, res, next) {
-//   req.session.nombre = "FelipeZura";
-//   next();
-// });
 var indexRouter = require('./routes/index');
 var libroRouter= require('./routes/libro');
 // view engine setup
