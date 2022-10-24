@@ -4,8 +4,10 @@
                 <span class="card-title">Editar Libro</span>
                 </div>
                 <div class="card-content">
-                    <form id="editar_libro" action="/" method="post" enctype="multipart/form-data">
+                    <form id="editar_libro" action="../actualizar/" method="post" enctype="multipart/form-data">
                         <div class="input-field col s12">
+                            <input placeholder=""  name="id" type="hidden" class="validate" required="" aria-required="true" maxlenght="11" value="<%= libro.id %>">
+                            <input placeholder=""  name="imagen_old" type="hidden" class="validate" required="" aria-required="true" maxlenght="1500" value="<%= libro.imagen %>">
                             <input placeholder="" id="titulo" name="titulo" type="text" class="validate" required="" aria-required="true" maxlenght="50" value="<%= libro.titulo %>">
                             <label for="titulo" data-error="wrong" data-success="right">Titulo </label>
                         </div>
@@ -18,13 +20,17 @@
                             <label for="descripcion" data-error="wrong" data-success="right">Descripción </label>
                         </div>
                         <div class="input-field col s12">
+                            <img src="../../images/<%= libro.imagen %>" width="200" alt="<%= libro.imagen %>">
+                           
+                        </div>
+                        <div class="input-field col s12">
                             <div class="file-field input-field">
                                 <div class="btn btn-small">
                                   <span>Agregar imagen</span>
                                   <input placeholder="" id="imagen" name="imagen" type="file" class="validate" required="" accept=".jpg,.jpeg,.png" aria-required="true"   >
                                 </div>
                                 <div class="file-path-wrapper">
-                                  <input class="file-path validate" type="text" value="<%= libro.imagen %>">
+                                  <input class="file-path validate" type="text" >
                                 </div>
                               </div>
                         </div>            
