@@ -5,7 +5,7 @@
                 <a>Bienvenido: <%= nombresession %></a>
                 </div>
                 <div class="card-content">
-                    <form id="editar_libro" action="biblioteca/../actualizar/" method="post" enctype="multipart/form-data">
+                    <form id="editar_libro" action="../actualizar/" method="post" enctype="multipart/form-data">
                         <div class="input-field col s12">
                             <input placeholder=""  name="id" type="hidden" class="validate" required="" aria-required="true" maxlenght="11" value="<%= libro.id %>">
                             <input placeholder=""  name="imagen_old" type="hidden" class="validate" required="" aria-required="true" maxlenght="1500" value="<%= libro.imagen %>">
@@ -36,7 +36,7 @@
                               </div>
                         </div>            
                         <button class="btn waves-effect waves-light"  type="submit">Editar</button>            
-                        <a  class="btn waves-effect waves-light" href="/libro">Cancelar</a>           
+                        <a  class="btn waves-effect waves-light" href="/biblioteca/libro">Cancelar</a>           
                     </form>
                 </div>
             </div>

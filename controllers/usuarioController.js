@@ -23,7 +23,7 @@ module.exports ={
                     logs.setLog(con,req.session.identificador,'Sesión iniciada: '+req.session.nombre,function(err){
                         console.log("almacena log modificado");
                     });  
-                    res.redirect('/libro');
+                    res.redirect('/biblioteca/libro');
                 }  
             });
         }

@@ -1,6 +1,6 @@
 <%- include ('../maqueta/cabecera.ejs') %>
         <br>
-        <a href="biblioteca/libro/agregar" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        <a href="/biblioteca/libro/agregar" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         <div class="card">
           <div class="card-content">
             <span class="card-title">Listado de Libros</span>
@@ -25,14 +25,14 @@
                         <td><%= libro[i].titulo %></td>
                         <td><%= libro[i].autor %></td>
                         <td><%= libro[i].descripcion  %></td>
-                        <td><img src="biblioteca/images/<%= libro[i].imagen %>" width="100"></td>
+                        <td><img src="/biblioteca/images/<%= libro[i].imagen %>" width="100"></td>
                         <td>                      
-                          <form action="biblioteca/libro/editar/<%= libro[i].id %>" method="get">
+                          <form action="/biblioteca/libro/editar/<%= libro[i].id %>" method="get">
                             <button class="btn red-effect red-light" type="submit" name="editar"><i class="material-icons">edit</i></button>
                           </form>
                         </td> 
                         <td>                      
-                          <form id="formEliminarLibro<%= libro[i].id %>" action="biblioteca/libro/eliminar/<%= libro[i].id %>" method="post">
+                          <form id="formEliminarLibro<%= libro[i].id %>" action="/biblioteca/libro/eliminar/<%= libro[i].id %>" method="post">
                             <button value="<%= libro[i].id %>" class="btn red-effect red-light" type="button" onclick="confirm_eliminar(this.value)" name="eliminar"><i class="material-icons">delete</i></button>
                           </form>
                         </td>

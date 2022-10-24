@@ -52,7 +52,7 @@ module.exports ={
                     logs.setLog(con,req.session.identificador,'libro agregado: '+req.body.titulo,function(err){
                         console.log("almacena log agregar libro");
                     });     
-                    res.redirect('/libro');
+                    res.redirect('/biblioteca/libro');
                 });
                 console.log("almacena libro");
             }
@@ -72,7 +72,7 @@ module.exports ={
                 logs.setLog(con,req.session.identificador,'libro eliminado id: '+req.params.id,function(err){
                     console.log("almacena log eliminado");
                 });    
-                res.redirect('/libro');
+                res.redirect('/biblioteca/libro');
             });
             });
         }
@@ -114,7 +114,7 @@ module.exports ={
                     logs.setLog(con,req.session.identificador,'libro modificado id: '+req.body.id,function(err){
                         console.log("almacena log modificado");
                     });  
-                    res.redirect('/libro');
+                    res.redirect('/biblioteca/libro');
                 });
                 console.log("actualiza libro");
             }
