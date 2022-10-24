@@ -1,5 +1,5 @@
 module.exports={
-    getByIdUsuario:function(conexion,nombre,funcion){
-        conexion.query("SELECT * FROM USUARIOS where nombre=?",[nombre],funcion);
+    getUsuario:function(conexion,datos,funcion){
+        conexion.query("SELECT * FROM USUARIOS where nombre=? and password=?",[datos.nombre,datos.password],funcion);
     },
 }
