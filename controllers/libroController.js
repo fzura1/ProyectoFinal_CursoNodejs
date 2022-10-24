@@ -60,6 +60,27 @@ module.exports ={
             console.log(datos[0]);
             res.render('libro/editar', { title: 'Editar libro',libro:datos[0]});
         });
-    }
+    },
+    // metodo actualizar libro
+    actualizar_libro:function(req,res){
+        var titulo=req.body.titulo;
+        var autor=req.body.autor;        
+        var descripcion=req.body.descripcion;        
+        if(! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,250})$/.test(descripcion) ){
+            console.log("llego a error 400");
+            var nombreImg="public/images/"+(req.file.filename); //ruta imagen
+            borrarImg.unlinkSync(nombreImg); //elimina debido a error
+            res.writeHead(400, { 'Content-Type': 'text/html' })
+            res.end()
+            
+        }else{
+            libro.updateLibro(con,req.body,req.file,function(err){
+                var nombreImg_old="public/images/"+(req.body.imagen_old); //ruta imagen
+                borrarImg.unlinkSync(nombreImg_old); //elimina imagen antigua
+                res.redirect('/libro');
+            });
+            console.log("actualiza libro");
+        }
+    },
 
 }
