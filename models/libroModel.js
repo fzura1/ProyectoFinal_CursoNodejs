@@ -11,4 +11,7 @@ module.exports={
     deleteByIdLibro:function(conexion,id,funcion){
         conexion.query("DELETE FROM LIBROS  where id=?",[id],funcion);
     },
+    updateLibro:function(conexion,datos,archivos,funcion){
+        conexion.query("UPDATE LIBROS SET titulo=?, autor=?,descripcion=?,imagen=? WHERE id=?",[datos.titulo,datos.autor,datos.descripcion,archivos.filename,datos.id],funcion);
+    },
 }
