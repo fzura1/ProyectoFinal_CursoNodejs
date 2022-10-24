@@ -5,7 +5,7 @@ const usuarioController=require('../controllers/usuarioController')
 router.get('/',function(req, res,next){
     res.render('index', { title: 'Bienvenido',mjs:''});
 });
-router.post('/login',usuarioController.login);
+router.post('biblioteca/login',usuarioController.login);
 router.get('/cerrar_sesion',usuarioController.cerrar_sesion);
 
 module.exports = router;
