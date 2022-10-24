@@ -30,8 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('biblioteca/', indexRouter);
-app.use('biblioteca/libro', libroRouter);
+app.use('/biblioteca/', indexRouter);
+app.use('/biblioteca/libro', libroRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
