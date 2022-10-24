@@ -1,86 +1,124 @@
 var con=require('../config/conexion');
 var libro=require('../models/libroModel');
+var logs=require('../models/logsModel');
 var borrarImg=require('fs');
 module.exports ={
     // metodo index de libro
     index:function(req,res){
-        // if(!req.session.nombre){
-        //     res.end("No tienes permiso de acceso");
-        // }else{
+        if(!req.session.identificador){
+            res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
+        }else{
             //usa modelo libro
             libro.getLibro(con,function(err,datos){
-                console.log(datos)
                 // renderiza vista index libros
-                res.render('libro/index', { title: 'Inventario de Libros',libro:datos });
+                res.render('libro/index', { 
+                    title: 'Inventario de Libros',
+                    libro:datos, 
+                    identificadorsession:req.session.identificador,
+                    nombresession:req.session.nombre
+                });
             });            
-        // }
+        }
     },    
     // metodo agregar libro (carga vista)
     agregar:function(req,res){
-            res.render('libro/agregar', { title: 'Agregar libro'});
+        if(!req.session.identificador){
+            res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
+        }else{
+            res.render('libro/agregar', { 
+                title: 'Agregar libro',
+                identificadorsession:req.session.identificador,
+                nombresession:req.session.nombre
+            });
+        }
     },
     // metodo guardar libro
     guardar_libro:function(req,res){
-        console.log(req.body);
-        console.log(req.file.filename);
-        var titulo=req.body.titulo;
-        var autor=req.body.autor;        
-        var descripcion=req.body.descripcion;        
-        if(! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,250})$/.test(descripcion) ){
-            console.log("llego a error 400");
-            var nombreImg="public/images/"+(req.file.filename); //ruta imagen
-            borrarImg.unlinkSync(nombreImg); //elimina debido a error
-            res.writeHead(400, { 'Content-Type': 'text/html' })
-            res.end()
-            
+        if(!req.session.identificador){
+            res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
         }else{
-            libro.setLibro(con,req.body,req.file,function(err){
-                res.redirect('/libro');
-            });
-            console.log("almacena libro");
+            var titulo=req.body.titulo;
+            var autor=req.body.autor;        
+            var descripcion=req.body.descripcion;        
+            if(! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,250})$/.test(descripcion) ){
+                console.log("llego a error 400");
+                var nombreImg="public/images/"+(req.file.filename); //ruta imagen
+                borrarImg.unlinkSync(nombreImg); //elimina debido a error
+                res.writeHead(400, { 'Content-Type': 'text/html' })
+                res.end()
+                
+            }else{
+                libro.setLibro(con,req.body,req.file,function(err){
+                    logs.setLog(con,req.session.identificador,'libro agregado: '+req.body.titulo,function(err){
+                        console.log("almacena log agregar libro");
+                    });     
+                    res.redirect('/libro');
+                });
+                console.log("almacena libro");
+            }
         }
     },
     // metodo eliminar libro
     eliminar_libro:function(req,res){
-        console.log(req.params.id);
-        libro.getByIdLibro(con,req.params.id,function(err,datos){
-           var nombreImg="public/images/"+(datos[0].imagen);
-           if(borrarImg.existsSync(nombreImg)){
-                borrarImg.unlinkSync(nombreImg);
-           }
-           libro.deleteByIdLibro(con,req.params.id,function(err){
+        if(!req.session.identificador){
+            res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
+        }else{
+            libro.getByIdLibro(con,req.params.id,function(err,datos){
+            var nombreImg="public/images/"+(datos[0].imagen);
+            if(borrarImg.existsSync(nombreImg)){
+                    borrarImg.unlinkSync(nombreImg);
+            }
+            libro.deleteByIdLibro(con,req.params.id,function(err){
+                logs.setLog(con,req.session.identificador,'libro eliminado id: '+req.params.id,function(err){
+                    console.log("almacena log eliminado");
+                });    
                 res.redirect('/libro');
-           });
-        });
+            });
+            });
+        }
     },
     // metodo editar libro
     editar_libro:function(req,res){
-        console.log(req.params.id);
-        libro.getByIdLibro(con,req.params.id,function(err,datos){
-            console.log(datos[0]);
-            res.render('libro/editar', { title: 'Editar libro',libro:datos[0]});
-        });
+        if(!req.session.identificador){
+            res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
+        }else{
+            libro.getByIdLibro(con,req.params.id,function(err,datos){
+                res.render('libro/editar', { 
+                    title: 'Editar libro',
+                    libro:datos[0],
+                    identificadorsession:req.session.identificador,
+                    nombresession:req.session.nombre
+                });
+            });
+        }
     },
     // metodo actualizar libro
     actualizar_libro:function(req,res){
-        var titulo=req.body.titulo;
-        var autor=req.body.autor;        
-        var descripcion=req.body.descripcion;        
-        if(! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,250})$/.test(descripcion) ){
-            console.log("llego a error 400");
-            var nombreImg="public/images/"+(req.file.filename); //ruta imagen
-            borrarImg.unlinkSync(nombreImg); //elimina debido a error
-            res.writeHead(400, { 'Content-Type': 'text/html' })
-            res.end()
-            
+        if(!req.session.identificador){
+            res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
         }else{
-            libro.updateLibro(con,req.body,req.file,function(err){
-                var nombreImg_old="public/images/"+(req.body.imagen_old); //ruta imagen
-                borrarImg.unlinkSync(nombreImg_old); //elimina imagen antigua
-                res.redirect('/libro');
-            });
-            console.log("actualiza libro");
-        }
+            var titulo=req.body.titulo;
+            var autor=req.body.autor;        
+            var descripcion=req.body.descripcion;        
+            if(! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(titulo) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,50})$/.test(autor) || ! /^([A-Za-zÑñÁáÉéÍíÓóÚúÜü0-9\s]{1,250})$/.test(descripcion) ){
+                console.log("llego a error 400");
+                var nombreImg="public/images/"+(req.file.filename); //ruta imagen
+                borrarImg.unlinkSync(nombreImg); //elimina debido a error
+                res.writeHead(400, { 'Content-Type': 'text/html' })
+                res.end()
+                
+            }else{
+                libro.updateLibro(con,req.body,req.file,function(err){
+                    var nombreImg_old="public/images/"+(req.body.imagen_old); //ruta imagen
+                    borrarImg.unlinkSync(nombreImg_old); //elimina imagen antigua
+                    logs.setLog(con,req.session.identificador,'libro modificado id: '+req.body.id,function(err){
+                        console.log("almacena log modificado");
+                    });  
+                    res.redirect('/libro');
+                });
+                console.log("actualiza libro");
+            }
+        }    
     },
 
 }
