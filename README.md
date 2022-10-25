@@ -10,12 +10,12 @@ Proyecto en Nodejs para la gestión de un inventario de libros que contenga un l
 ## Como se inicia la app
 - Abrir navegador chrome o firefox.
 - Buscar la barra de dirección lo siguiente: localhost:8080
-- Tambien puede probarlo en http://felipezura.me/biblioteca con usuario:felipe@zura.cl clave:12345678
+- Tambien puede probarlo en https://felipezura.me/biblioteca con usuario:felipe@zura.cl clave:12345678
 - Listo para usar :D
 
 ## Características principales
 - Utiliza express-generator 
 - Motor de templates EJS
-- Login con encriptación de clave con bcrypt
+- Login con encriptación de clave bcrypt
 - CRUD de Libros
 
