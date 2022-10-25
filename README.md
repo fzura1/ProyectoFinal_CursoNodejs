@@ -14,7 +14,8 @@ Proyecto en Nodejs para la gestión de un inventario de libros que contenga un l
 - Listo para usar :D
 
 ## Características principales
-- Utiliza express para mostrar site en cliente 
-- Utiliza motor de templates EJS
+- Utiliza express-generator 
+- Motor de templates EJS
+- Login con encriptación de clave con bcrypt
 - CRUD de Libros
 
