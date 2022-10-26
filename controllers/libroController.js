@@ -4,12 +4,12 @@ var logs=require('../models/logsModel');
 var borrarImg=require('fs');
 module.exports ={
     // metodo index de libro
-    index:function(req,res){
+    index:async function(req,res){
         if(!req.session.identificador){
             res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
         }else{
             //usa modelo libro
-            libro.getLibro(con,function(err,datos){
+           await libro.getLibro(con,function(err,datos){
                 // renderiza vista index libros
                 res.render('libro/index', { 
                     title: 'Inventario de Libros',
@@ -33,7 +33,7 @@ module.exports ={
         }
     },
     // metodo guardar libro
-    guardar_libro:function(req,res){
+    guardar_libro:async function(req,res){
         if(!req.session.identificador){
             res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
         }else{
@@ -48,10 +48,10 @@ module.exports ={
                 res.end()
                 
             }else{
-                libro.setLibro(con,req.body,req.file,function(err){
-                    logs.setLog(con,req.session.identificador,'libro agregado: '+req.body.titulo,function(err){
+                await libro.setLibro(con, req.body, req.file,async function (err) {
+                await logs.setLog(con, req.session.identificador, 'libro agregado: ' + req.body.titulo, function (err) {
                         console.log("almacena log agregar libro");
-                    });     
+                    });
                     res.redirect('/biblioteca/libro');
                 });
                 console.log("almacena libro");
@@ -59,17 +59,17 @@ module.exports ={
         }
     },
     // metodo eliminar libro
-    eliminar_libro:function(req,res){
+    eliminar_libro:async function(req,res){
         if(!req.session.identificador){
             res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
         }else{
-            libro.getByIdLibro(con,req.params.id,function(err,datos){
+            await libro.getByIdLibro(con,req.params.id,async function(err,datos){
             var nombreImg="public/images/"+(datos[0].imagen);
             if(borrarImg.existsSync(nombreImg)){
                     borrarImg.unlinkSync(nombreImg);
             }
-            libro.deleteByIdLibro(con,req.params.id,function(err){
-                logs.setLog(con,req.session.identificador,'libro eliminado id: '+req.params.id,function(err){
+            await libro.deleteByIdLibro(con,req.params.id,async function(err){
+                await logs.setLog(con,req.session.identificador,'libro eliminado id: '+req.params.id,function(err){
                     console.log("almacena log eliminado");
                 });    
                 res.redirect('/biblioteca/libro');
@@ -93,7 +93,7 @@ module.exports ={
         }
     },
     // metodo actualizar libro
-    actualizar_libro:function(req,res){
+    actualizar_libro:async function(req,res){
         if(!req.session.identificador){
             res.render("index", {title: "Bienvenido",mjs:'Sesión caducada'});
         }else{
@@ -108,10 +108,10 @@ module.exports ={
                 res.end()
                 
             }else{
-                libro.updateLibro(con,req.body,req.file,function(err){
+             await libro.updateLibro(con,req.body,req.file,async function(err){
                     var nombreImg_old="public/images/"+(req.body.imagen_old); //ruta imagen
                     borrarImg.unlinkSync(nombreImg_old); //elimina imagen antigua
-                    logs.setLog(con,req.session.identificador,'libro modificado id: '+req.body.id,function(err){
+                    await logs.setLog(con,req.session.identificador,'libro modificado id: '+req.body.id,function(err){
                         console.log("almacena log modificado");
                     });  
                     res.redirect('/biblioteca/libro');
