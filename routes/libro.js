@@ -16,7 +16,23 @@ var rutaAlmacenImg=multer.diskStorage(
         }
     }
 );
-var cargarImg=multer({storage:rutaAlmacenImg});
+const maxSize = 1 * 1024 * 1024; // for 1MB
+var cargarImg=multer({
+    storage:rutaAlmacenImg,
+    fileFilter: (req, file, cb) => {
+        if (
+          file.mimetype == "image/png" ||
+          file.mimetype == "image/jpg" ||
+          file.mimetype == "image/jpeg"
+        ) {
+          cb(null, true);
+        } else {
+          cb(null, false);
+          return cb(new Error("solo .png, .jpg y .jpeg permitidos!"));
+        }
+      },
+      limits: { fileSize: maxSize },
+});
 
 
 
